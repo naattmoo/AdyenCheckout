@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link crossorigin="anonymous" href="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.21.1/adyen.css"
+          integrity="sha384-KM3xJKzswGJ0xqiPCOHrWUtn0i0LHqEngauvYxSfy0eRtqcImL7ArxjV2HVgeRJ/"
+          rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/checkout.css') }}">
+</head>
+<body>
+<div id="title">
+    <h2> SELECT A PAYMENT METHOD</h2>
+</div>
+<div id="dropin-container"/>
+
+<script crossorigin="anonymous"
+        integrity="sha384-qgB03MgLihAbvkTmWIkmZxFUxyAqJ4Ozk1My6beIRqit6+8e5HFg8ysln5y5FSw0"
+        src="https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.21.1/adyen.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script> var paymentsMethods =  {{payments | safe}};
+var clientKey =  "{{clientKey}}";
+</script>
+<script src="{{ url_for('static', filename = 'js/makePayment.js') }}"
+        type="text/javascript"></script>
+<script src="{{ url_for('static', filename = 'js/makeDetailsCall.js') }}"
+        type="text/javascript"></script>
+<script src="{{ url_for('static', filename = 'js/showFinalResult.js') }}"
+        type="text/javascript"></script>
+<script src="{{ url_for('static', filename = 'js/dropin.js') }}"
+        type="text/javascript"></script>
+
+</body>
+</html>

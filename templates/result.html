@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/results.css') }}">
+</head>
+<body>
+<div id="result">
+    <img height="88"  id="result_img" class="result_img adyen-checkout__status__icon adyen-checkout__image adyen-checkout__image--loaded" src="">
+    <span class="result_text adyen-checkout__status__text"></span>
+</div>
+<script>
+var resultCode =  "{{result}}";
+</script>
+<script src="{{ url_for('static', filename = 'js/showFinalResultRedirect.js') }}"
+        type="text/javascript"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+div#result {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    height: 350px;
+    margin: 0;
+    padding: 32px;
+    background-color: #fff;
+    border-radius: 6px;
+    border: 1px solid #d4d9db;
+    font-size: 1em;
+    color: #00112c;
+}
+img#result_img{
+    margin-bottom: 24px;
+}
