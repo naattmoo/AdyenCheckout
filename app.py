@@ -27,7 +27,7 @@ def uplaodCheckout():
     body = {
         "merchantAccount": config.MERCHANT_ACCOUNT,
         "countryCode": countrycode,
-        "allowedPaymentMethods": ["visa", "mc", "ideal"],
+
         "amount": {
             "currency": currency,
             "value": 1000
@@ -90,17 +90,29 @@ def makeDetailsCall():
         print(resp.text)
         return resp.text
 
-@app.route('/checkout', methods=['GET'])
+@app.route('/checkout', methods=['GET', 'POST'])
 def checkout():
+    details = {}
     if request.method == "GET":
-        data = request.args.get('redirectResult')
-        print(data)
-        global paymentData
-        print(paymentData)
-        body={ "details" : { "redirectResult": data },  "paymentData": paymentData }
-        resp = makeCall('payments/details', json.dumps(body))
-        print(resp.text)
-        return render_template("result.html", result=resp.json()['resultCode'])
+        redirectResult=''
+        if ('redirectResult' in request.args.keys()):
+            redirectResult = request.args.get('redirectResult')
+        details={ "redirectResult": redirectResult }
+
+
+    if request.method == "POST":
+        md = request.form['MD']
+        pares = request.form['PaRes']
+        details = {"MD": md,
+                   "PaRes": pares}
+
+    global paymentData
+    print(paymentData)
+    print(details)
+    body={ "details" : details,  "paymentData": paymentData }
+    resp = makeCall('payments/details', json.dumps(body))
+    print(resp.text)
+    return render_template("result.html", result=resp.json()['resultCode'])
 
 
 if __name__ == '__main__':
