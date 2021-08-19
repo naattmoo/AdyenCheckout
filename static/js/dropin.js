@@ -6,7 +6,7 @@ async function initCheckout() {
 	try {
          const configuration = {
          paymentMethodsResponse: paymentsMethods,
-         showPayButton: true,
+         showPayButton: false,
          clientKey: clientKey,
          originKey: "pub.v2.8216209033662207.aHR0cDovL2xvY2FsaG9zdDo4MDAw.qZCAfiQuZ9N-xULgyaqjdXPB-geAEkaHlF0kXEqT1CQ",
          locale: "en-US",
