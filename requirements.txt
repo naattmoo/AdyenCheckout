@@ -8,3 +8,4 @@ Jinja2==2.10.1
 MarkupSafe==1.1.1
 Werkzeug==0.15.6
 requests==2.25.0
+pyOpenSSL==20.0.1

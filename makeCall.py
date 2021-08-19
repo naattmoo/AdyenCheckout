@@ -1,10 +1,11 @@
 import requests
-import config
 
-def makeCall(uri, body):
-    url = 'https://checkout-test.adyen.com/v66/'+uri
+def makeCall(uri, body, apiKey):
+    url = 'https://checkout-test.adyen.com/v67/'+uri
     headers = {
-        'x-API-key': config.API_KEY,
+        'x-API-key': apiKey,
         'content-type': 'application/json'}
+    print("/request:\n" + body)
     response = requests.post(url, headers=headers, data=body)
+    print("/response:\n" + response.text)
     return response

@@ -68,3 +68,12 @@ font-family: sans-serif;
 .adyen-checkout__input {
     border-color: #34E62F;
 }
+#cabecera{
+    margin: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-style: solid;
+    padding-bottom: 10px;
+    border-width: 2px;
+    padding-top: 5px;
+}
