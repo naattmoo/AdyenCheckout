@@ -43,9 +43,11 @@ def checkout(integration):
             "merchantAccount": config.merchant_account,
             "amount": {
                 "currency": "EUR",
-                "value": 9900
+                "value": 5808
             },
-            "channel": "Web"
+            "shopperReference": "prueba"
+            #"splitCardFundingSources": "true"
+            #"shopperReference": "shopperNoExistente"
         }
         # "shopperReference": "xee6f62b4-9a22-4860-b6c9-e69de062ba61"
         resp = makeCall('paymentMethods', json.dumps(body), config.checkout_apikey)
@@ -66,6 +68,8 @@ def makePayment():
         data['shopperInteraction'] = 'ContAuth'
         data['recurringProcessingModel'] = 'CardOnFile'
         data['shopperReference'] = "xee6f62b4-9a22-4860-b6c9-e69de062ba61"
+        #if(data['paymentMethod']['brand']=='maestro'):
+        #    data['shopperInteraction'] = 'Ecommerce'
     if ('storePaymentMethod' in data) and (data['storePaymentMethod'] == True):
         data['shopperInteraction'] = 'Ecommerce'
         data['recurringProcessingModel'] = 'CardOnFile'
@@ -78,34 +82,69 @@ def makePayment():
     returnUrl = data['origin'] + '/handleShopperRedirect?orderRef=' + reference
 
     body_string = """{
-                   "merchantAccount": \"""" + config.merchant_account + """\",
-                   "amount": {
+                "enablePayOut" : false,
+               "merchantAccount": \"""" + config.merchant_account + """\",
+               "amount": {
                        "currency": "EUR",
-                       "value": 1000
-                   },""" + json.dumps(data).replace('\'', '\"')[1: -1] + """,
-                  "reference": \"""" + reference + """\",
-                  "shopperLocale": "es_ES",
-                  "countryCode": "ES",
-                  "shopperIP":"192.0.2.1",
-                  "channel":"web",
-                  "additionalData": {
-                          "allow3DS2": true
-                   },
-                   "billingAddress": {
-                          "country": "ES",
-                          "city": "Madrid",
-                          "street": "Calle de Atocha",
-                          "houseNumberOrName": "27",
-                          "stateOrProvince": "N/A",
-                          "postalCode": "28001"
-                   },
-                   "returnUrl": \"""" + returnUrl + """\"    
-                }"""
+                   "value": 6000
+               },""" + json.dumps(data).replace('\'', '\"')[1: -1] + """,
+              "reference": \"""" + reference + """\",
+              "shopperLocale": "es_ES",
+              "countryCode": "ES",
+              "shopperIP":"192.0.2.1",
+              "channel":"web",
+              "telephoneNumber": "+346763507s90",
+              "additionalData": {
+                      "allow3DS2": true
+              },
+               "shopperEmail":"youremail@email.com",
+               "shopperName":{
+                  "firstName":"Testperson-es",
+                  "gender":"UNKNOWN",
+                  "lastName":"Approved"
+               },
+               "shopperStatement":"prueba de Shopper Statement",
+               "shopperReference": "prueba",
+               "billingAddress": {
+                      "country": "ES",
+                      "city": "Madrid",
+                      "street": "Atocha",
+                      "houseNumberOrName": "1",
+                      "stateOrProvince": "N/A",
+                      "postalCode": "28002"
+               },
+               "lineItems":[
+                  {
+                     "quantity":"1",
+                     "amountExcludingTax":"5000",
+                     "taxPercentage":"0",
+                     "description":"Test item 1",
+                     "id":"item1",
+                     "taxAmount":"0",
+                     "amountIncludingTax":"5000"
+                  },
+                  {
+                     "quantity":"1",
+                     "amountExcludingTax":"10000",
+                     "taxPercentage":"0",
+                     "description":"Test item 2",
+                     "id":"item2",
+                     "taxAmount":"0",
+                     "amountIncludingTax":"10000"
+                  }
+               ],
+               "returnUrl": \"""" + returnUrl + """\"    
+            }"""
+
     # "threeDSAuthenticationOnly":true, //Flujo autenticacion y autorizacion por separado.
     # "additionalData": {
     #    "allow3DS2": true
     # },
     # "shopperReference": "xee6f62b4-9a22-4860-b6c9-e69de062ba61",
+    #"customRoutingFlag": "mcDebit"
+    #"riskData":{
+    #"riskProfileReference":"8016358411114661"
+    #},
 
     body = json.loads(body_string)
 
@@ -189,6 +228,28 @@ def handleShopperRedirect():
     else:
         return redirect(url_for('checkout_failure'))
 
+@app.route('/process_payment', methods=['GET', 'POST'])
+def process_payment():
+    print(request.args.keys())
+    if request.method == "GET":
+        if ('amazonCheckoutSessionId' in request.args.keys()):
+            amazonSessionId = request.args.get('amazonCheckoutSessionId')
+        print(amazonSessionId)
+        body = {
+            "merchantAccount": config.merchant_account,
+            "amount": {
+                "currency": "EUR",
+                "value": 5808
+            },
+            "shopperReference": "prueba"
+            # "splitCardFundingSources": "true"
+            # "shopperReference": "shopperNoExistente"
+        }
+        # "shopperReference": "xee6f62b4-9a22-4860-b6c9-e69de062ba61"
+        resp = makeCall('paymentMethods', json.dumps(body), config.checkout_apikey)
+        return render_template('amazon.html', amazonSessionId=amazonSessionId, client_key=config.client_key, payments=resp.text)
+    else:
+        return redirect(url_for('checkout_failure'))
 
 @app.route('/result/success', methods=['GET'])
 def checkout_success():
@@ -218,4 +279,4 @@ def favicon():
 
 if __name__ == '__main__':
     #ssl_context='adhoc',
-    app.run(ssl_context='adhoc',debug=True, host='0.0.0.0', port=8000)
+    app.run(debug=True, host='0.0.0.0',port=8000)

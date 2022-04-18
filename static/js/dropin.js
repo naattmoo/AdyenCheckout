@@ -1,7 +1,7 @@
 const clientKey = JSON.parse(document.getElementById('clientKey').innerHTML);
 const type = JSON.parse(document.getElementById('integration-type').innerHTML);
 const paymentsMethods = JSON.parse(document.getElementById('paymentsMethods').innerHTML);
-
+var payData;
 async function initCheckout() {
 	try {
          const configuration = {
@@ -9,13 +9,16 @@ async function initCheckout() {
          showPayButton: true,
          clientKey: clientKey,
          originKey: "pub.v2.8216209033662207.aHR0cDovL2xvY2FsaG9zdDo4MDAw.qZCAfiQuZ9N-xULgyaqjdXPB-geAEkaHlF0kXEqT1CQ",
-         locale: "en-US",
+         locale: "es-ES",
          environment: "test",
          configuration: {
             gatewayMerchantId: "MerchantTestNatalia"
           },
+
          onSubmit: (state, dropin) => {
-                    console.log(state);
+           console.log(state.data);
+           console.log(dropin);
+
                     makePayment(state.data, window.location.origin).then(response => {
                     console.log(response);
                  if (response.action) {
@@ -61,13 +64,37 @@ async function initCheckout() {
              hasHolderName: true,
              holderNameRequired: false,
              enableStoreDetails: true,
-             //hideCVC: false , // Change this to true to hide the CVC field for stored cards
-             name: 'Credit or debit card',
-             billingAddressRequired: false,
+             hideCVC: false , // Change this to true to hide the CVC field for stored cards
+             name: '',
+              onBinLookup: (binLookUpInfo) =>{
+         console.log(JSON.stringify(binLookUpInfo));
+         },
+         onBinValue:(binValueInfo) =>{
+         console.log(JSON.stringify(binValueInfo));
+         },
+             billingAddressRequired: true,
+             styles: {
+        base: {
+                fontFamily: "neue-haas-grotesk-medium"
+            },
+            placeholder: {
+                fontFamily: "neue-haas-grotesk-medium"
+            }
+      }
            },
            storedCard: {
-            hideCVC: true
+            hideCVC: false
+
            },
+            threeDS2: { // Web Components 4.0.0 and above: sample configuration for the threeDS2 action type
+              challengeWindowSize: '05'
+               // Set to any of the following:
+               // '02': ['390px', '400px'] -  The default window size
+               // '01': ['250px', '400px']
+               // '03': ['500px', '600px']
+               // '04': ['600px', '400px']
+               // '05': ['100%', '100%']
+        },
            paypal: {
      merchantId: 'V8ZBCTZ2DHQ72',
      environment: "test", // Change this to "live" when you're ready to accept live PayPal payments
@@ -75,10 +102,12 @@ async function initCheckout() {
        amount: {
             currency: "EUR",
             value: 1000
-       },
-       style: { // Example optional configuration for PayPal.
-              color: 'blue',
        }
+       //,
+       //style: { // Example optional configuration for PayPal.
+       //       color: 'blue',
+       //layout:'vertical'
+       //}
        } ,
            applepay: {
         amount: {
@@ -97,12 +126,40 @@ async function initCheckout() {
               throw Error(error);
             });
         }
-      }
-         }
+      },
+          amazonpay: { // Optional configuration for Amazon Pay
+                    currency: 'EUR',
+                    environment: 'test',
+                    returnUrl: 'https://localhost:8000/process_payment',
+                    amount:{ value: 1000, currency: 'EUR' }
+                },
+         paywithgoogle: { //Example required configuration for Google Pay
+           environment: "TEST", //Change this to PRODUCTION when you're ready to accept live Google Pay payments
+           amount: {
+             currency: "EUR",
+             value: 1000
+           },
+           //allowedAuthMethods:['PAN_ONLY'],
+           //onSubmit:(state) => {console.log(state)
+           //},
+           countryCode: "NL",
+           buttonType:"plain",
+           //buttonColor: "white", //Optional. Use a white Google Pay button.
+           //For other optional configuration, see section below.
+           emailRequired : true,
+           shippingAddressRequired:true,
+           billingAddressRequired:true,
+           billingAddressParameters: {"format": "FULL", "phoneNumberRequired":true},
+           //onAuthorized:(paymentData) => {
+           //console.log(paymentData);
+           //}
+           }
+           }
         };
 
         const checkout = new AdyenCheckout(configuration);
         const dropin = checkout.create(type).mount('#dropin-container');
+
 
     if(type=='card'){
 

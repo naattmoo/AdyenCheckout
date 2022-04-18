@@ -1,10 +1,19 @@
 /* General page body */
-
+@font-face {
+    font-family: "neue-haas-grotesk-medium";
+    src: url("https://www.test-development.parfois.com/on/demandware.static/Sites-Parfois_South_Europe-Site/-/pt_PT/v1633617110001/fonts/NeueHaasDisplay-Mediu.eot");
+    src:
+        url("https://www.test-development.parfois.com/on/demandware.static/Sites-Parfois_South_Europe-Site/-/pt_PT/v1633617110001/fonts/NeueHaasDisplay-Mediu.eot?#iefix") format("embedded-opentype"),
+        url("https://www.test-development.parfois.com/on/demandware.static/Sites-Parfois_South_Europe-Site/-/pt_PT/v1633617110001/fonts/NeueHaasDisplay-Mediu.woff2") format("woff2"),
+        url("https://www.test-development.parfois.com/on/demandware.static/Sites-Parfois_South_Europe-Site/-/pt_PT/v1633617110001/fonts/NeueHaasDisplay-Mediu.woff") format("woff"),
+        url("https://www.test-development.parfois.com/on/demandware.static/Sites-Parfois_South_Europe-Site/-/pt_PT/v1633617110001/fonts/NeueHaasDisplay-Mediu.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
 html,
 body {
 	width: 100%;
 	margin: 0;
-	font-family: "Fakt", sans-serif, Helvetica, Arial;
 }
 
 *,

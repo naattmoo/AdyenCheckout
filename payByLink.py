@@ -13,7 +13,10 @@ def adyen_pay_by_link(merchant, apiKey):
 		},
 		'reference': order_ref,
 		'countryCode': 'PT',
-		'merchantAccount': merchant
+		'merchantAccount': merchant,
+		"requiredShopperFields": ["shopperName", "shopperEmail", "billingAddress"],
+		"shopperReference": "ShopperID-A16728",
+		"recurringProcessingModel": "CardOnFile"
 	}
 	print("/payByLink request:\n" + str(paybylink_request))
 	url = 'https://checkout-test.adyen.com/v67/paymentLinks'
