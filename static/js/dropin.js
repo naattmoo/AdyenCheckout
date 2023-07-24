@@ -96,7 +96,7 @@ async function initCheckout() {
                // '05': ['100%', '100%']
         },
            paypal: {
-     merchantId: 'V8ZBCTZ2DHQ72',
+     //merchantId: 'V8ZBCTZ2DHQ72',
      environment: "test", // Change this to "live" when you're ready to accept live PayPal payments
        countryCode: "NL", // Only needed for test. This will be automatically retrieved when you are in production
        amount: {
@@ -157,7 +157,7 @@ async function initCheckout() {
            }
         };
 
-        const checkout = new AdyenCheckout(configuration);
+        const checkout = await AdyenCheckout(configuration);
         const dropin = checkout.create(type).mount('#dropin-container');
 
 
