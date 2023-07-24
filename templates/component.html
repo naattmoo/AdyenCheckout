@@ -8,11 +8,15 @@
      href="https://checkoutshopper-live.adyen.com/checkoutshopper/sdk/4.2.0/adyen.css"
      integrity="sha384-oT6lIQpTr+nOu+yFBPn8mSMkNQID9wuEoTw8lmg2bcrFoDu/Ae8DhJVj+T5cUmsM"
      crossorigin="anonymous">-->
-<link rel="stylesheet"
+<!--<link rel="stylesheet"
      href="https://checkoutshopper-live.adyen.com/checkoutshopper/sdk/4.7.1/adyen.css"
      integrity="sha384-dkJjySvUD62j8VuK62Z0VF1uIsoa+APxWLDHpTjBRwQ95VxNl7oaUvCL+5WXG8lh"
-     crossorigin="anonymous">
-   <!--<link rel="stylesheet"
+     crossorigin="anonymous">-->
+<!--<link rel="stylesheet"
+     href="https://checkoutshopper-live.adyen.com/checkoutshopper/sdk/5.39.0/adyen.css"
+     integrity="sha384-wfFaUCatOjF81fz/vsj2zdQuPWekgx9HbIMfEUjEHzTKX7v/juxeM+zIJA0QKJtO"
+     crossorigin="anonymous">-->
+  <!-- <link rel="stylesheet"
      href="https://checkoutshopper-live.adyen.com/checkoutshopper/sdk/4.6.0/adyen.css"
      integrity="sha384-dkJjySvUD62j8VuK62Z0VF1uIsoa+APxWLDHpTjBRwQ95VxNl7oaUvCL+5WXG8lh"
      crossorigin="anonymous">-->
@@ -20,22 +24,54 @@
     href="https://checkoutshopper-live.adyen.com/checkoutshopper/sdk/3.9.4/adyen.css"
     integrity="sha384-6qrXvoxlnBlrflZQ9g5Yf5oZapUSSXctPxacP9oRcEukbEO7lXisuSyMKG8pDX8V"
     crossorigin="anonymous">-->
-
-
+<link rel="stylesheet"
+     href="https://checkoutshopper-live.adyen.com/checkoutshopper/sdk/5.40.0/adyen.css"
+     integrity="sha384-BRZCzbS8n6hZVj8BESE6thGk0zSkUZfUWxL/vhocKu12k3NZ7xpNsIK39O2aWuni"
+     crossorigin="anonymous">
+<!--<link rel="stylesheet"
+     href="https://checkoutshopper-live.adyen.com/checkoutshopper/sdk/5.41.0/adyen.css"
+     integrity="sha384-BRZCzbS8n6hZVj8BESE6thGk0zSkUZfUWxL/vhocKu12k3NZ7xpNsIK39O2aWuni"
+     crossorigin="anonymous">-->
+<!--<link rel="stylesheet"
+     href="https://checkoutshopper-live.adyen.com/checkoutshopper/sdk/5.43.0/adyen.css"
+     integrity="sha384-9N2Z2Q52NG3GmPKAXjzfPyGAQNCLKNrtExVZyfQ/QcbebtRaSboSKxvN8dLM0rVI"
+     crossorigin="anonymous">-->
     <!--<link rel="stylesheet" href="{{ url_for('static', filename = 'css/checkout.css') }}">-->
 
 <div id="title">
     <h2> SELECT A PAYMENT METHOD</h2>
 </div>
-<div id="dropin-container" style="margin-top: 15px;"/>
+<!--<div id="dropin-container" class="clicktopay-container" style="margin-top: 15px;"></div>-->
+<label class='methodpay adyen_paypal'>
+<div id='paypal-container' class="clicktopay-container" style="margin-top: 15px;"></div>
+</label>
 
+
+
+<div id="oney-container">
+    <button onclick="showOneyWidget()">Oney Widget</button>
+</div>
+<div data-name="Adyen paypal"></div>
+<div id="klarna-payments-container"/>
 <!--<button class="favorite styled" type="button" onclick="pay()"> Pay</button>-->
 <!--<script src="https://checkoutshopper-live.adyen.com/checkoutshopper/sdk/4.2.0/adyen.js"
      integrity="sha384-SGA+BK9i1sG5N4BTCgRH6EGbopUK8WG/azn/TeIHYeBEXmEaB+NT+410Z9b1ii7Z"
      crossorigin="anonymous"></script>-->
-<script src="https://checkoutshopper-live.adyen.com/checkoutshopper/sdk/4.7.1/adyen.js"
+<!--<script src="https://checkoutshopper-live.adyen.com/checkoutshopper/sdk/4.7.1/adyen.js"
      integrity="sha384-+6sganTOdD6V0LmuV93Rv4yPqf9Pt/2hDohL1SZ0tnac+qK1kvlsAJPnrFFZsMaK"
+     crossorigin="anonymous"></script>-->
+<!--<script src="https://checkoutshopper-live.adyen.com/checkoutshopper/sdk/5.39.0/adyen.js"
+     integrity="sha384-xEeOeJS9noqG6GBdLeyfdybymyC6T4EG+kKvvii2xJkChmwENEgCTpP+XvET9NDG"
+     crossorigin="anonymous"></script>-->
+<script src="https://checkoutshopper-live.adyen.com/checkoutshopper/sdk/5.40.0/adyen.js"
+     integrity="sha384-ds1t0hgFCe636DXFRL6ciadL2Wb4Yihh27R4JO7d9CF7sFY3NJE4aPCK0EpzaYXD"
      crossorigin="anonymous"></script>
+ <!--   <script src="https://checkoutshopper-live.adyen.com/checkoutshopper/sdk/5.41.0/adyen.js"
+     integrity="sha384-i+7Em2dyjN9Hkb0A6J/i7ijqRtlgbq2vqHFDShR7r1eDyIQOTtVTjIw/n7ewuAoT"
+     crossorigin="anonymous"></script>-->
+ <!--   <script src="https://checkoutshopper-live.adyen.com/checkoutshopper/sdk/5.43.0/adyen.js"
+     integrity="sha384-YjFx15k4Uc9TRivIWGdpSu0wtMyH5cnD3VyKIx/Qk0BKod0osE3s/Jvb2nlWSovM"
+     crossorigin="anonymous"></script>-->
 <!--<script src="https://checkoutshopper-live.adyen.com/checkoutshopper/sdk/4.6.0/adyen.js"
      integrity="sha384-JUh7tBeKmc021qaxi4K0XJ52L4SJlxVkeyYhb70KVFBQOIxRsHKpp+Dy22VO49xk"
      crossorigin="anonymous"></script>-->
@@ -55,5 +91,7 @@
         type="text/javascript"></script>
 <script src="{{ url_for('static', filename = 'js/dropin.js') }}"
         type="text/javascript"></script>
+
+<script src="https://assets.oney.io/build/loader.min.js"></script>
 
 {% endblock %}
